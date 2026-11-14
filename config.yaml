@@ -1,0 +1,27 @@
+# doc2md 設定ファイル
+output_root: output          # この配下に YYYYMMDD_HHMMSS フォルダを作って保存
+
+ocr:
+  enabled: true
+  lang: japan                # 日本語＋英数字
+  # モデル名を空にすると lang の既定（高精度モデル）を使用。
+  # 速度優先なら PP-OCRv5_mobile_det / PP-OCRv5_mobile_rec を指定（精度は下がる）。
+  detection_model: ""
+  recognition_model: ""
+  device: auto               # auto / cpu / gpu:0
+  enable_mkldnn: false       # x86 CPUで不具合が出る版があるため既定は無効
+  low_confidence: 0.80       # この値未満の行を低信頼として数える
+  min_image_px: 40           # これより小さい画像（アイコン等）はOCRしない
+  reconstruct_tables: true   # OCR結果の座標から表を復元する
+  normalize_variants: true   # 中国語字体で出た漢字（產→産 など）を日本の字体に直す
+
+pdf:
+  dpi: 200                   # スキャンページを画像化する解像度
+  min_text_chars: 10         # 1ページの文字数がこれ未満ならスキャンとみなしOCR
+  ocr_embedded_images: true  # テキスト層のあるページ内の大きな画像もOCRする
+  min_image_ratio: 0.15      # ページ幅に対する比率がこれ以上の画像を対象
+
+office:
+  ocr_embedded_images: true  # docx / pptx / xlsx 内の画像をOCRする
+  include_hidden_sheets: true
+  include_notes: true        # pptx のノート
